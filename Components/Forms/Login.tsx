@@ -23,11 +23,11 @@ export default function LoginForm() {
       if (res?.error) {
         toast.warning("Invalid email or password");
       } else {
+        reset()
         toast.success("Welcome back!");
         router.push("/dashboard");
         router.refresh();
       }
-      reset()
     } catch (err) {
       console.error(err)
       toast.error("Something went wrong!")

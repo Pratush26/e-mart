@@ -5,12 +5,12 @@ import '@/Utils/styles/form.css'
 import { toast } from "sonner";
 
 interface userInfo {
-    name: string;
-    email: string;
-    password: string;
-    photo: FileList;
-    phone: string;
-    address: string;
+  name: string;
+  email: string;
+  password: string;
+  photo: FileList;
+  phone: string;
+  address: string;
 }
 
 export default function RegistrationForm() {
@@ -36,10 +36,22 @@ export default function RegistrationForm() {
         return;
       }
       data.photo = uploadResult.secure_url;
-    //   const res = await registerUser(data);
-    //   if (res.success) toast.success(res.message as string || "Successfully registered user");
-    //   else toast.error(res.message as string || "Something went wrong!");
-      reset();
+      const res = await fetch(`${process.env.Backend}/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        toast.success(result.message || "Successfully registered user");
+        reset();
+      } else {
+        toast.error(result.message || "Something went wrong!");
+      }
     } catch (err) {
       console.error(err)
       toast.error("Something went wrong!");
