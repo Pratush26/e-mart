@@ -1,0 +1,39 @@
+input,
+textarea,
+select {
+    background-color: var(--foreground);
+    padding: 10px 20px;
+    font-size: .9rem;
+    width: 100%;
+    color: var(--background);
+    border-radius: 6px;
+    box-shadow: 2px 2px 4px rgba(1, 21, 0, 0.425);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+}
+
+label{
+    font-weight: 500;
+    padding-top: 18px;
+    padding-left: 4px;
+    font-size: .9rem;
+    color: var(--foreground);
+    width: 94%;
+    margin: auto;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 2px 2px 4px rgba(1, 21, 0, 0.425);
+    -webkit-text-fill-color: var(--background);
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+#non-document, #document {
+    box-shadow: none;
+    width: fit-content;
+    margin-right: 12px;
+}
