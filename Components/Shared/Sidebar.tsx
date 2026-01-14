@@ -6,6 +6,7 @@ import { useState } from "react";
 import { RxCross2, RxHamburgerMenu } from "react-icons/rx";
 import SidebarLink from "../LinkWrapper/SidebarLink";
 import Logo from "./Logo";
+import { FaUser } from "react-icons/fa";
 
 export default function Sidebar() {
     const [isOpened, setIsOpened] = useState(false)
@@ -27,7 +28,12 @@ export default function Sidebar() {
                         session?.user ?
                             <>
                                 <div className="flex items-center gap-2">
-                                    <Image src={session?.user?.image} height={40} width={40} style={{ objectFit: "cover" }} alt="user image" className="rounded-full aspect-square" />
+                                    {
+                                        session?.user?.image ?
+                                            <Image src={session?.user?.image} height={40} width={40} style={{ objectFit: "cover" }} alt="user image" className="rounded-full aspect-square" />
+                                            :
+                                            <FaUser className="h-10 w-10 aspect-square" />
+                                    }
                                     <button onClick={() => signOut()} className="btn btn-primary trns rounded-md">Log Out</button>
                                 </div>
                                 <SidebarLink href="/dashboard">Dashboard</SidebarLink>

@@ -36,14 +36,11 @@ export default function RegistrationForm() {
         return;
       }
       data.photo = uploadResult.secure_url;
-      const res = await fetch(`${process.env.Backend}/user`, {
+      const res = await fetch("/api/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
       const result = await res.json();
 
       if (res.ok) {

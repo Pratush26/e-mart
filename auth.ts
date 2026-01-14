@@ -2,6 +2,7 @@ import bcrypt from "bcrypt"
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
+import { connectDB } from "./lib/dbConnect";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, Credentials({
@@ -10,23 +11,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       password: { label: "Password", type: "password" },
     },
     authorize: async (credentials) => {
-      if (!credentials?.email || !credentials?.password) return null;
-      const res = await fetch(`${process.env.Backend}/user?email=${credentials.email}`);
-      if (!res.ok) return null;
-      
-      const user = await res.json();
-      if (!user) return null;
+      try {
+        const { db } = await connectDB();
+        const { email, password } = credentials;
+        const user = await db.collection("users").findOne({ email });
+        if (!user) throw new Error("No user found");
 
-      const isPasswordValid = await bcrypt.compare(credentials.password as string, user.password);
-      if (!isPasswordValid) return null;
+        const isPasswordValid = bcrypt.compare(password as string, user?.password);
+        if (!isPasswordValid) throw new Error("Invalid password");
 
-      return {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        image: user.photo,
-        role: user.role,
-      };
+        return {
+          _id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          image: user.photo,
+        };
+      } catch (err) {
+        console.error("authentication error", err)
+        return null;
+      }
     },
   }),
   ],
@@ -41,15 +45,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account, profile }) {
       if (account?.provider === "google") {
-        if (!profile?.email) return false;
-
-        const res = await fetch(`${process.env.Backend}/user?email=${profile.email}`);
-        if (!res.ok) return false;
-
-        const dbUser = await res.json();
+        const { db } = await connectDB();
+        const dbUser = await db.collection("users").findOne({ email: profile?.email });
         if (!dbUser) return "/register";
 
-        user.id = dbUser._id;
+        user.id = dbUser._id.toString();
         user.name = dbUser.name;
         user.email = dbUser.email;
         user.image = dbUser.photo;
