@@ -1,11 +1,10 @@
 input,
 textarea,
 select {
-    background-color: var(--foreground);
+    background-color: var(--input);
     padding: 10px 20px;
     font-size: .9rem;
     width: 100%;
-    color: var(--background);
     border-radius: 6px;
     box-shadow: 2px 2px 4px rgba(1, 21, 0, 0.425);
 }

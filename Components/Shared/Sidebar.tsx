@@ -44,13 +44,13 @@ export default function Sidebar() {
                                             <SidebarLink href="/manage-projects">Manage Projects</SidebarLink>
                                         </>
                                         :
-                                        session.user?.role === "employee" ?
+                                        session.user?.role === "seller" ?
                                             <>
-                                                <SidebarLink href="/submit-task">Submit Task</SidebarLink>
+                                                <SidebarLink href="/add-items">Add Items</SidebarLink>
                                             </>
                                             :
                                             <>
-                                                <SidebarLink href="/add-items">Add Items</SidebarLink>
+                                                <SidebarLink href="/check-cart">Submit Task</SidebarLink>
                                             </>
                                 }
                             </>
