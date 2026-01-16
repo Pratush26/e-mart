@@ -42,7 +42,6 @@ export default function Sidebar() {
                                         <>
                                             <SidebarLink href="/create-project">Create Project</SidebarLink>
                                             <SidebarLink href="/manage-projects">Manage Projects</SidebarLink>
-                                            <SidebarLink href="/register">Register</SidebarLink>
                                         </>
                                         :
                                         session.user?.role === "employee" ?
@@ -51,7 +50,7 @@ export default function Sidebar() {
                                             </>
                                             :
                                             <>
-                                                <SidebarLink href="/see-projects">See Projects</SidebarLink>
+                                                <SidebarLink href="/add-items">Add Items</SidebarLink>
                                             </>
                                 }
                             </>

@@ -2,8 +2,6 @@ import { FcGoogle } from "react-icons/fc"
 import { signIn } from "@/auth"
 import LoginForm from "@/Components/Forms/Login"
 
-export const dynamic = "force-dynamic"
-
 export default async function LoginPage() {
     return (
         <main className="my-10 w-full">
