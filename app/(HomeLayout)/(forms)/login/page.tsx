@@ -1,6 +1,7 @@
 import { FcGoogle } from "react-icons/fc"
 import { signIn } from "@/auth"
 import LoginForm from "@/Components/Forms/Login"
+import Link from "next/link"
 
 export default async function LoginPage() {
     return (
@@ -16,6 +17,7 @@ export default async function LoginPage() {
                 >
                     <button type="submit" className="trns btn btn-out flex gap-2 items-center rounded-md"><FcGoogle /> Signin with Google</button>
                 </form>
+                <span className="text-xs font-semibold">Do not have an account? <Link href="/register" className="text-cyan-600 trns hover:text-cyan-700">Register</Link></span>
             </section>
         </main>
     )

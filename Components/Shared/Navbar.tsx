@@ -6,7 +6,7 @@ import Logo from "./Logo";
 export default async function Navbar() {
     const session = await auth()
     return (
-        <header className="w-full bg-secondary sticky top-0 shadow-md/30">
+        <header className="w-full bg-secondary sticky top-0 shadow-md/30 z-10">
             <nav className="w-11/12 mx-auto my-4 flex items-center justify-between gap-4">
                 <Logo />
                 <div className="space-x-2 text-sm font-medium">
