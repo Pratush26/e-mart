@@ -9,12 +9,7 @@ interface ItemType {
     description: string;
     category: string;
     photo: string;
-    stock: number;
-    unit: string;
     price: number;
-    seller: ObjectId;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
 interface PageProps {
@@ -36,7 +31,7 @@ export default async function AllItems({ searchParams }: PageProps) {
         const { db } = await connectDB();
 
         items = await db.collection<ItemType>("items")
-            .find({})
+            .find({}, {projection: {title: 1, description: 1, _id: 1, category: 1, price: 1, photo: 1}})
             .skip(skip)
             .limit(LIMIT)
             .sort({ createdAt: -1 })

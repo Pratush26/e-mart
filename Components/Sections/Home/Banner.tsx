@@ -6,9 +6,7 @@ import Autoplay from "embla-carousel-autoplay"
 import {
     Carousel,
     CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
+    CarouselItem
 } from "@/Components/ui/carousel"
 import Image from "next/image"
 import Link from "next/link"
@@ -24,15 +22,15 @@ interface dataType {
 }
 export default function BannerSection({ bannerData }: { bannerData: dataType[] }) {
     const plugin = React.useRef(
-        Autoplay({ delay: 2000, stopOnInteraction: true })
+        Autoplay({ delay: 2000, stopOnInteraction: false })
     )
 
     return (
         <Carousel
             plugins={[plugin.current]}
             className="w-full my-8"
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
+            onMouseEnter={() => plugin.current.stop()}
+            onMouseLeave={() => plugin.current.play()}
         >
             <CarouselContent>
                 {bannerData?.map(e => (
@@ -49,8 +47,6 @@ export default function BannerSection({ bannerData }: { bannerData: dataType[] }
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
         </Carousel>
     )
 }
