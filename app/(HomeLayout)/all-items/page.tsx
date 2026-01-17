@@ -23,7 +23,7 @@ interface PageProps {
     };
 }
 
-const LIMIT = 4;
+const LIMIT = 10;
 
 export default async function AllItems({ searchParams }: PageProps) {
     const page = Number(searchParams.page || "1");
