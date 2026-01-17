@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import Image from "next/image";
 import Link from "next/link";
+import AddToCartBtn from "./Buttons/AddToCart";
 
 interface ItemType {
     _id: ObjectId;
@@ -28,7 +29,10 @@ export default function Card({ e }: { e: ItemType }) {
                 <span className="px-4 py-1 rounded-full text-xs bg-gray-300 text-black capitalize">{e?.category}</span>
             </div>
             <p className='line-clamp-2'>{e.description}</p>
-            <Link href={`/product-details/${e._id.toString()}`} className='hover:underline italic'>View Details</Link>
+            <div className="flex items-center justify-between gap-2">
+                <AddToCartBtn title={e.title ?? ""} id={e._id ? e._id.toString() : ""} />
+                <Link href={`/item-details/${e._id.toString()}`} className='hover:underline italic'>View Details</Link>
+            </div>
         </div>
     )
 }
